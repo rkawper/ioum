@@ -9,7 +9,7 @@ describe('BackupService', () => {
     expect(backup.version).toBe('1.0.0');
     expect(backup.persons.length).toBeGreaterThan(0);
     expect(backup.transactions.length).toBeGreaterThan(0);
-    expect(backup.currency.code).toBe('USD');
+    expect(backup.currency.code).toBe('INR');
   });
 
   it('validates and parses correct JSON backup', () => {

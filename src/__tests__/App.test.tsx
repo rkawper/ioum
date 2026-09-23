@@ -49,8 +49,8 @@ describe('App End-to-End User Flow', () => {
       // Sushi night should be in transaction history
       expect(screen.getByText('Sushi night')).toBeDefined();
 
-      // Dashboard header should update to $50.00 owed
-      expect(screen.getByText('Owed to you: $50.00')).toBeDefined();
+      // Dashboard header should update to ₹50.00 owed
+      expect(screen.getByText('Owed to you: ₹50.00')).toBeDefined();
     });
 
     // 6. Click Lend Money again to verify Alice appears in the dropdown now!

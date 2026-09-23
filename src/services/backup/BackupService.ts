@@ -1,16 +1,18 @@
 import type { BackupData, Currency, Person, Transaction } from '../../types';
 
 export const DEFAULT_CURRENCIES: Currency[] = [
+  { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
   { code: 'USD', symbol: '$', name: 'US Dollar' },
   { code: 'EUR', symbol: '€', name: 'Euro' },
   { code: 'GBP', symbol: '£', name: 'British Pound' },
-  { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
   { code: 'CAD', symbol: 'CA$', name: 'Canadian Dollar' },
   { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
   { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
   { code: 'SGD', symbol: 'S$', name: 'Singapore Dollar' },
   { code: 'AED', symbol: 'AED', name: 'UAE Dirham' },
 ];
+
+export const DEFAULT_CURRENCY = DEFAULT_CURRENCIES[0];
 
 /**
  * Service managing export, import, and demo data (SOLID: SRP)
