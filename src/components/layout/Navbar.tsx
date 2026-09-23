@@ -3,6 +3,7 @@ import {
   ArrowDownLeft,
   ArrowUpRight,
   Download,
+  Monitor,
   Moon,
   Settings,
   Sun,
@@ -25,7 +26,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenDownloadModal,
   onOpenSettingsModal,
 }) => {
-  const { currency, setCurrency, theme, toggleTheme, overallSummary } = useIOUM();
+  const { currency, setCurrency, theme, resolvedTheme, toggleTheme, overallSummary } = useIOUM();
   const [showCurrencyDropdown, setShowCurrencyDropdown] = useState(false);
   const isOnline = useOnlineStatus();
 
@@ -143,13 +144,21 @@ export const Navbar: React.FC<NavbarProps> = ({
               type="button"
               onClick={toggleTheme}
               className="p-2 rounded-xl text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
-              aria-label="Toggle dark mode"
-              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label="Toggle theme mode"
+              title={
+                theme === 'system'
+                  ? `Theme: System (${resolvedTheme === 'dark' ? 'Dark' : 'Light'}) - Click for Light Mode`
+                  : theme === 'light'
+                  ? 'Theme: Light - Click for Dark Mode'
+                  : 'Theme: Dark - Click for System Default'
+              }
             >
-              {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-400" />
+              {theme === 'system' ? (
+                <Monitor className="w-4 h-4 text-indigo-500" />
+              ) : theme === 'dark' ? (
+                <Moon className="w-4 h-4 text-indigo-400" />
               ) : (
-                <Moon className="w-4 h-4 text-slate-600" />
+                <Sun className="w-4 h-4 text-amber-500" />
               )}
             </button>
 

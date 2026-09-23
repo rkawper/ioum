@@ -3,6 +3,7 @@ import {
   AlertTriangle,
   Coins,
   Download,
+  Monitor,
   Moon,
   RotateCcw,
   Sparkles,
@@ -25,7 +26,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
     currency,
     setCurrency,
     theme,
-    toggleTheme,
+    resolvedTheme,
+    setTheme,
     exportData,
     importData,
     loadDemoData,
@@ -106,22 +108,73 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
           </div>
 
           {/* Appearance / Theme */}
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 gap-3">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
-                {theme === 'dark' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+              <div className="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
+                {theme === 'system' ? (
+                  <Monitor className="w-4 h-4" />
+                ) : theme === 'dark' ? (
+                  <Moon className="w-4 h-4" />
+                ) : (
+                  <Sun className="w-4 h-4" />
+                )}
               </div>
               <div>
                 <div className="text-sm font-semibold text-slate-900 dark:text-white">Theme Mode</div>
                 <div className="text-xs text-slate-500 dark:text-slate-400">
-                  Currently {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
+                  {theme === 'system'
+                    ? `System default (currently ${resolvedTheme === 'dark' ? 'Dark' : 'Light'})`
+                    : theme === 'dark'
+                    ? 'Always Dark Mode'
+                    : 'Always Light Mode'}
                 </div>
               </div>
             </div>
 
-            <Button variant="outline" size="sm" onClick={toggleTheme}>
-              Switch to {theme === 'dark' ? 'Light' : 'Dark'}
-            </Button>
+            {/* Segmented Controls for System / Light / Dark */}
+            <div className="flex items-center p-1 bg-slate-200/70 dark:bg-slate-900/80 rounded-xl gap-0.5 self-end sm:self-auto">
+              <button
+                type="button"
+                onClick={() => setTheme('system')}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  theme === 'system'
+                    ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Follow system preference"
+              >
+                <Monitor className="w-3.5 h-3.5" />
+                <span>System</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setTheme('light')}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  theme === 'light'
+                    ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Always Light"
+              >
+                <Sun className="w-3.5 h-3.5" />
+                <span>Light</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setTheme('dark')}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  theme === 'dark'
+                    ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Always Dark"
+              >
+                <Moon className="w-3.5 h-3.5" />
+                <span>Dark</span>
+              </button>
+            </div>
           </div>
         </div>
 

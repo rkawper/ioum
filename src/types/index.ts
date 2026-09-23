@@ -59,6 +59,8 @@ export interface Currency {
   name: string;
 }
 
+export type ThemeMode = 'system' | 'light' | 'dark';
+
 export type SortOption =
   | 'DATE_DESC'
   | 'DATE_ASC'

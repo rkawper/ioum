@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import type { Currency, OverallSummary, Person, PersonBalanceSummary, Transaction } from '../types';
+import type { Currency, OverallSummary, Person, PersonBalanceSummary, ThemeMode, Transaction } from '../types';
 import { BalanceCalculationService } from '../services/balance/BalanceCalculationService';
 import { BackupService, DEFAULT_CURRENCIES } from '../services/backup/BackupService';
 import { type CreatePersonDTO, PersonService } from '../services/person/PersonService';
@@ -20,7 +20,9 @@ interface IOUMContextValue {
   overallSummary: OverallSummary;
   currency: Currency;
   setCurrency: (currency: Currency) => void;
-  theme: 'light' | 'dark';
+  theme: ThemeMode;
+  resolvedTheme: 'light' | 'dark';
+  setTheme: (theme: ThemeMode) => void;
   toggleTheme: () => void;
   isLoading: boolean;
   toasts: ToastInfo[];
@@ -80,35 +82,59 @@ export const IOUMProvider: React.FC<IOUMProviderProps> = ({
   const [persons, setPersons] = useState<Person[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [currency, setCurrencyState] = useState<Currency>(DEFAULT_CURRENCIES[0]);
-  const [theme, setThemeState] = useState<'light' | 'dark'>('light');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [toasts, setToasts] = useState<ToastInfo[]>([]);
-
-  // Initialize theme from storage or system preference
-  useEffect(() => {
+  const [theme, setThemeState] = useState<ThemeMode>(() => {
     try {
-      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-      if (savedTheme === 'dark' || savedTheme === 'light') {
-        setThemeState(savedTheme);
-        document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setThemeState('dark');
-        document.documentElement.classList.add('dark');
+      const saved = localStorage.getItem(THEME_STORAGE_KEY);
+      if (saved === 'dark' || saved === 'light' || saved === 'system') {
+        return saved;
       }
-    } catch {
-      // Ignore storage errors
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const nextTheme = theme === 'light' ? 'dark' : 'light';
-    setThemeState(nextTheme);
-    document.documentElement.classList.toggle('dark', nextTheme === 'dark');
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
     } catch {
       // Ignore
     }
+    return 'system';
+  });
+  const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [toasts, setToasts] = useState<ToastInfo[]>([]);
+
+  const resolvedTheme: 'light' | 'dark' =
+    theme === 'system' ? (systemPrefersDark ? 'dark' : 'light') : theme;
+
+  // Listen to OS prefers-color-scheme changes dynamically
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      setSystemPrefersDark(e.matches);
+    };
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Sync resolvedTheme to documentElement class
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', resolvedTheme === 'dark');
+  }, [resolvedTheme]);
+
+  const setTheme = (mode: ThemeMode) => {
+    setThemeState(mode);
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, mode);
+    } catch {
+      // Ignore
+    }
+  };
+
+  const toggleTheme = () => {
+    // Quick toggle cycling: 'system' -> 'light' -> 'dark' -> 'system'
+    const nextTheme: ThemeMode =
+      theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system';
+    setTheme(nextTheme);
   };
 
   const setCurrency = (c: Currency) => {
@@ -325,6 +351,8 @@ export const IOUMProvider: React.FC<IOUMProviderProps> = ({
         currency,
         setCurrency,
         theme,
+        resolvedTheme,
+        setTheme,
         toggleTheme,
         isLoading,
         toasts,
