@@ -93,23 +93,15 @@ export const TransactionItem: React.FC<TransactionItemProps> = ({
           </div>
 
           <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-100 mt-1 truncate">
-            {transaction.description || transaction.category || (isLent ? 'Loan' : 'Borrowed')}
+            {transaction.description || (isLent ? 'Loan' : 'Borrowed')}
           </h4>
 
-          {/* Metadata chips (Date, Category, Due date) */}
+          {/* Metadata chips (Date, Due date) */}
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-1 flex-wrap">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
               {formatDateTime(transaction.date)}
             </span>
-            {transaction.category && (
-              <>
-                <span>•</span>
-                <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[11px] font-medium text-slate-600 dark:text-slate-300">
-                  {transaction.category}
-                </span>
-              </>
-            )}
 
             {dueDateInfo && !isSettled && (
               <>

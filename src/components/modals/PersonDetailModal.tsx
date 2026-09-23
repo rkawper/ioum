@@ -197,18 +197,12 @@ export const PersonDetailModal: React.FC<PersonDetailModalProps> = ({
                     <div className="min-w-0 pr-3">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-semibold text-slate-900 dark:text-white truncate">
-                          {tx.description || tx.category || (isTxLent ? 'Loan' : 'Borrowed')}
+                          {tx.description || (isTxLent ? 'Loan' : 'Borrowed')}
                         </span>
                         <Badge status={tx.status} />
                       </div>
                       <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         <span>{formatDateTime(tx.date)}</span>
-                        {tx.category && (
-                          <>
-                            <span className="mx-1.5">•</span>
-                            <span>{tx.category}</span>
-                          </>
-                        )}
                       </div>
                       {tx.settlements && tx.settlements.length > 0 && (
                         <div className="mt-1.5 space-y-0.5 pl-2 border-l-2 border-indigo-200 dark:border-indigo-800">

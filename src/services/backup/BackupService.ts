@@ -117,7 +117,6 @@ export class BackupService {
         remainingAmount: typeof t.remainingAmount === 'number' ? t.remainingAmount : t.amount,
         date: typeof t.date === 'string' ? t.date : new Date().toISOString(),
         dueDate: typeof t.dueDate === 'string' ? t.dueDate : undefined,
-        category: typeof t.category === 'string' ? t.category : 'General',
         description: typeof t.description === 'string' ? t.description : 'Transaction',
         status: (['PENDING', 'PARTIALLY_PAID', 'SETTLED'].includes(t.status as string)
           ? t.status
@@ -208,7 +207,6 @@ export class BackupService {
         remainingAmount: 85.0,
         date: daysAgo(5),
         dueDate: daysFuture(10),
-        category: 'Food & Dining',
         description: 'Dinner at Italian Bistro & dessert',
         status: 'PENDING',
         settlements: [],
@@ -223,7 +221,6 @@ export class BackupService {
         remainingAmount: 45.0,
         date: daysAgo(8),
         dueDate: daysFuture(5),
-        category: 'Travel & Commute',
         description: 'Airport ride share split',
         status: 'PENDING',
         settlements: [],
@@ -238,7 +235,6 @@ export class BackupService {
         remainingAmount: 50.0,
         date: daysAgo(14),
         dueDate: daysFuture(3),
-        category: 'Entertainment',
         description: 'Concert tickets front row',
         status: 'PARTIALLY_PAID',
         settlements: [
@@ -260,7 +256,6 @@ export class BackupService {
         amount: 30.0,
         remainingAmount: 0.0,
         date: daysAgo(12),
-        category: 'Shopping',
         description: 'Hiking gear batteries and trail snacks',
         status: 'SETTLED',
         settlements: [

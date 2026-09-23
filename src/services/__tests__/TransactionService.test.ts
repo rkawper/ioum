@@ -8,7 +8,6 @@ describe('TransactionService', () => {
       type: 'LENT',
       amount: 50.5,
       date: '2026-02-01',
-      category: 'Food & Dining',
       description: 'Lunch treat',
     });
 
@@ -27,7 +26,6 @@ describe('TransactionService', () => {
         type: 'LENT',
         amount: 0,
         date: '2026-02-01',
-        category: 'Food',
         description: 'Lunch',
       })
     ).toThrow('Transaction amount must be greater than zero');
@@ -38,41 +36,36 @@ describe('TransactionService', () => {
         type: 'LENT',
         amount: 20,
         date: '2026-02-01',
-        category: 'Food',
         description: 'Lunch',
       })
     ).toThrow('Transaction must be associated with a person');
   });
 
-  it('allows optional description and provides smart fallback', () => {
-    const txCategoryFallback = TransactionService.createTransaction({
+  it('allows optional description and falls back to Loan/Borrowed', () => {
+    const txLent = TransactionService.createTransaction({
       personId: 'p-1',
       type: 'LENT',
       amount: 50,
       date: '2026-02-01',
-      category: 'Food & Dining',
     });
-    expect(txCategoryFallback.description).toBe('Food & Dining');
+    expect(txLent.description).toBe('Loan');
 
-    const txTypeFallback = TransactionService.createTransaction({
+    const txBorrowed = TransactionService.createTransaction({
       personId: 'p-1',
       type: 'BORROWED',
       amount: 30,
       date: '2026-02-01',
-      category: 'General',
     });
-    expect(txTypeFallback.description).toBe('Borrowed');
-  });
+    expect(txBorrowed.description).toBe('Borrowed');
 
-  it('allows optional category and falls back description to loan/borrowed', () => {
-    const tx = TransactionService.createTransaction({
+    const txWithDesc = TransactionService.createTransaction({
       personId: 'p-1',
       type: 'LENT',
-      amount: 100,
+      amount: 50,
       date: '2026-02-01',
+      description: 'Dinner treat',
     });
-    expect(tx.category).toBeUndefined();
-    expect(tx.description).toBe('Loan');
+    expect(txWithDesc.description).toBe('Dinner treat');
   });
 
   it('defaults date to current time when omitted', () => {
@@ -94,7 +87,6 @@ describe('TransactionService', () => {
       type: 'LENT',
       amount: 100,
       date: '2026-02-01',
-      category: 'Food',
       description: 'Groceries',
     });
 
@@ -117,7 +109,6 @@ describe('TransactionService', () => {
       type: 'BORROWED',
       amount: 80,
       date: '2026-02-01',
-      category: 'Rent',
       description: 'Utilities share',
     });
 
@@ -134,7 +125,6 @@ describe('TransactionService', () => {
       type: 'LENT',
       amount: 50,
       date: '2026-02-01',
-      category: 'Other',
       description: 'Book',
     });
 

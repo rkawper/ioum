@@ -6,19 +6,6 @@ import { getCurrentDateTimeLocal, toDateTimeLocalString } from '../../utils/form
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
 
-const CATEGORY_PRESETS = [
-  'General',
-  'Food & Dining',
-  'Travel & Commute',
-  'Bills & Utilities',
-  'Rent & Housing',
-  'Shopping',
-  'Entertainment',
-  'Medical & Health',
-  'Loan / Cash',
-  'Other',
-];
-
 interface TransactionModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -44,7 +31,6 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
   const [amount, setAmount] = useState<string>('');
   const [date, setDate] = useState<string>(getCurrentDateTimeLocal());
   const [dueDate, setDueDate] = useState<string>('');
-  const [category, setCategory] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -64,7 +50,6 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       setDueDate(
         transactionToEdit.dueDate ? toDateTimeLocalString(transactionToEdit.dueDate) : ''
       );
-      setCategory(transactionToEdit.category || '');
       setDescription(transactionToEdit.description || '');
     } else {
       setType(initialType);
@@ -82,7 +67,6 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       setAmount('');
       setDate(getCurrentDateTimeLocal());
       setDueDate('');
-      setCategory('');
       setDescription('');
     }
     setError(null);
@@ -122,7 +106,6 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       }
 
       const finalDesc = description.trim() || undefined;
-      const finalCategory = category.trim() || undefined;
       const isoDate = date ? new Date(date).toISOString() : new Date().toISOString();
       const isoDueDate = dueDate ? new Date(dueDate).toISOString() : undefined;
 
@@ -136,8 +119,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             numAmount - (transactionToEdit.amount - transactionToEdit.remainingAmount),
           date: isoDate,
           dueDate: isoDueDate,
-          category: finalCategory,
-          description: finalDesc || finalCategory || (type === 'LENT' ? 'Loan' : 'Borrowed'),
+          description: finalDesc || (type === 'LENT' ? 'Loan' : 'Borrowed'),
         });
       } else {
         await addTransaction({
@@ -146,7 +128,6 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           amount: numAmount,
           date: isoDate,
           dueDate: isoDueDate,
-          category: finalCategory,
           description: finalDesc,
         });
       }
@@ -278,45 +259,25 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           )}
         </div>
 
-        {/* Amount & Category */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Amount ({currency.code}) <span className="text-rose-500">*</span>
-            </label>
-            <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400">
-                {currency.symbol}
-              </span>
-              <input
-                type="number"
-                step="0.01"
-                min="0.01"
-                required
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="0.00"
-                className="w-full pl-8 pr-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-semibold text-slate-900 dark:text-white"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Category (Optional)
-            </label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white cursor-pointer"
-            >
-              <option value="">None / Uncategorized</option>
-              {CATEGORY_PRESETS.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
+        {/* Amount */}
+        <div>
+          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            Amount ({currency.code}) <span className="text-rose-500">*</span>
+          </label>
+          <div className="relative">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400">
+              {currency.symbol}
+            </span>
+            <input
+              type="number"
+              step="0.01"
+              min="0.01"
+              required
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="0.00"
+              className="w-full pl-8 pr-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-semibold text-slate-900 dark:text-white"
+            />
           </div>
         </div>
 
