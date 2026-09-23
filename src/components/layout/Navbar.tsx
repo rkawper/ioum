@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   ArrowDownLeft,
   ArrowUpRight,
-  Download,
   Monitor,
   Moon,
   Settings,
@@ -13,17 +12,14 @@ import { useIOUM } from '../../context/IOUMContext';
 import { useOnlineStatus } from '../../hooks/useOnlineStatus';
 import { DEFAULT_CURRENCIES } from '../../services/backup/BackupService';
 import { formatCurrency } from '../../utils/formatters';
-import { Button } from '../common/Button';
 
 interface NavbarProps {
-  onOpenDownloadModal: () => void;
   onOpenSettingsModal: () => void;
   onOpenNewTransaction: (type?: 'LENT' | 'BORROWED') => void;
   onOpenNewPerson: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  onOpenDownloadModal,
   onOpenSettingsModal,
 }) => {
   const { currency, setCurrency, theme, resolvedTheme, toggleTheme, overallSummary } = useIOUM();
@@ -79,19 +75,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Action Tools */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {/* Download as Application Button */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onOpenDownloadModal}
-              className="border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 px-2.5 sm:px-3"
-              icon={<Download className="w-4 h-4 text-indigo-500" />}
-              aria-label="Install App"
-              title="Install App"
-            >
-              <span className="hidden sm:inline">Install App</span>
-            </Button>
-
             {/* Currency Selector */}
             <div className="relative">
               <button

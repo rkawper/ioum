@@ -73,7 +73,6 @@ const MainApp: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
       {/* Top Navbar */}
       <Navbar
-        onOpenDownloadModal={() => setIsDownloadModalOpen(true)}
         onOpenSettingsModal={() => setIsSettingsModalOpen(true)}
         onOpenNewTransaction={handleOpenNewTransaction}
         onOpenNewPerson={handleOpenNewPerson}
