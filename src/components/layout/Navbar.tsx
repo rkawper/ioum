@@ -6,8 +6,10 @@ import {
   Moon,
   Settings,
   Sun,
+  WifiOff,
 } from 'lucide-react';
 import { useIOUM } from '../../context/IOUMContext';
+import { useOnlineStatus } from '../../hooks/useOnlineStatus';
 import { DEFAULT_CURRENCIES } from '../../services/backup/BackupService';
 import { formatCurrency } from '../../utils/formatters';
 import { Button } from '../common/Button';
@@ -25,6 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const { currency, setCurrency, theme, toggleTheme, overallSummary } = useIOUM();
   const [showCurrencyDropdown, setShowCurrencyDropdown] = useState(false);
+  const isOnline = useOnlineStatus();
 
   return (
     <header className="sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
@@ -40,9 +43,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-500 dark:from-indigo-400 dark:via-purple-400 dark:to-indigo-300 bg-clip-text text-transparent">
                   IOUM
                 </span>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/60 hidden sm:inline-block">
-                  Offline-First
-                </span>
+                {isOnline ? (
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/60 hidden sm:inline-block">
+                    Offline-First
+                  </span>
+                ) : (
+                  <span
+                    className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 dark:bg-amber-950/80 dark:text-amber-300 border border-amber-300 dark:border-amber-700/80 flex items-center gap-1 shadow-xs"
+                    title="Working completely offline. All data is saved on your device."
+                  >
+                    <WifiOff className="w-3 h-3 text-amber-500" />
+                    <span>Offline Mode</span>
+                  </span>
+                )}
               </div>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-wide hidden md:block">
                 I Owe You &amp; Me
