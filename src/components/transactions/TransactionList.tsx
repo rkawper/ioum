@@ -70,7 +70,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({
           const person = personMap.get(tx.personId);
           const personName = person ? person.name.toLowerCase() : '';
           const desc = (tx.description || '').toLowerCase();
-          const cat = tx.category.toLowerCase();
+          const cat = (tx.category || '').toLowerCase();
 
           if (!desc.includes(q) && !personName.includes(q) && !cat.includes(q)) {
             return false;

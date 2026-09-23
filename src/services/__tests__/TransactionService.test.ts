@@ -64,6 +64,17 @@ describe('TransactionService', () => {
     expect(txTypeFallback.description).toBe('Borrowed');
   });
 
+  it('allows optional category and falls back description to loan/borrowed', () => {
+    const tx = TransactionService.createTransaction({
+      personId: 'p-1',
+      type: 'LENT',
+      amount: 100,
+      date: '2026-02-01',
+    });
+    expect(tx.category).toBeUndefined();
+    expect(tx.description).toBe('Loan');
+  });
+
   it('applies partial settlement correctly', () => {
     const tx = TransactionService.createTransaction({
       personId: 'p-1',

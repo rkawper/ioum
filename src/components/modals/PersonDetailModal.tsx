@@ -203,8 +203,12 @@ export const PersonDetailModal: React.FC<PersonDetailModalProps> = ({
                       </div>
                       <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         <span>{new Date(tx.date).toLocaleDateString()}</span>
-                        <span className="mx-1.5">•</span>
-                        <span>{tx.category}</span>
+                        {tx.category && (
+                          <>
+                            <span className="mx-1.5">•</span>
+                            <span>{tx.category}</span>
+                          </>
+                        )}
                       </div>
                     </div>
 

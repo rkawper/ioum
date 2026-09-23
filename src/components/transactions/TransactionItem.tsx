@@ -102,10 +102,14 @@ export const TransactionItem: React.FC<TransactionItemProps> = ({
               <Calendar className="w-3 h-3" />
               {formatDate(transaction.date)}
             </span>
-            <span>•</span>
-            <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[11px] font-medium text-slate-600 dark:text-slate-300">
-              {transaction.category}
-            </span>
+            {transaction.category && (
+              <>
+                <span>•</span>
+                <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[11px] font-medium text-slate-600 dark:text-slate-300">
+                  {transaction.category}
+                </span>
+              </>
+            )}
 
             {dueDateInfo && !isSettled && (
               <>

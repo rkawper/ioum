@@ -7,7 +7,7 @@ export interface CreateTransactionDTO {
   amount: number;
   date: string;
   dueDate?: string;
-  category: string;
+  category?: string;
   description?: string;
 }
 
@@ -42,10 +42,11 @@ export class TransactionService {
     }
 
     const trimmedDesc = dto.description?.trim();
+    const trimmedCategory = dto.category?.trim();
     const finalDescription =
       trimmedDesc ||
-      (dto.category && dto.category !== 'General'
-        ? dto.category
+      (trimmedCategory && trimmedCategory !== 'General'
+        ? trimmedCategory
         : dto.type === 'LENT'
         ? 'Loan'
         : 'Borrowed');
@@ -59,7 +60,7 @@ export class TransactionService {
       remainingAmount: amount,
       date: dto.date || now,
       dueDate: dto.dueDate || undefined,
-      category: dto.category || 'General',
+      category: trimmedCategory || undefined,
       description: finalDescription,
       status: 'PENDING',
       settlements: [],
