@@ -54,6 +54,7 @@ export const PersonList: React.FC<PersonListProps> = ({
             size="sm"
             onClick={onOpenNewPerson}
             icon={<UserPlus className="w-3.5 h-3.5" />}
+            className="hidden sm:inline-flex"
           >
             Add Person
           </Button>

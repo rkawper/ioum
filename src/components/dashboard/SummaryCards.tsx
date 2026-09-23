@@ -38,8 +38,8 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
           </p>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-2.5 w-full sm:w-auto flex-wrap">
+        {/* Action Buttons: visible on desktop/tablet, hidden on mobile since MobileBottomBar handles primary actions */}
+        <div className="hidden sm:flex items-center gap-2.5 w-full sm:w-auto flex-wrap">
           <Button
             variant="emerald"
             size="md"
@@ -151,7 +151,7 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
             <button
               type="button"
               onClick={() => onOpenNewTransaction('LENT')}
-              className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold flex items-center gap-0.5 cursor-pointer py-1"
+              className="hidden sm:inline-flex text-emerald-600 dark:text-emerald-400 hover:underline font-semibold items-center gap-0.5 cursor-pointer py-1"
             >
               <Plus className="w-3.5 h-3.5" />
               Record Loan
@@ -184,7 +184,7 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
             <button
               type="button"
               onClick={() => onOpenNewTransaction('BORROWED')}
-              className="text-rose-600 dark:text-rose-400 hover:underline font-semibold flex items-center gap-0.5 cursor-pointer py-1"
+              className="hidden sm:inline-flex text-rose-600 dark:text-rose-400 hover:underline font-semibold items-center gap-0.5 cursor-pointer py-1"
             >
               <Plus className="w-3.5 h-3.5" />
               Record Borrow
