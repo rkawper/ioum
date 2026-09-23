@@ -1,0 +1,9 @@
+{
+  "appId": "com.ioum.app",
+  "appName": "IOUM - I Owe You and Me",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}
