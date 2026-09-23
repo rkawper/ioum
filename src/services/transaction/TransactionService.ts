@@ -5,7 +5,7 @@ export interface CreateTransactionDTO {
   personId: string;
   type: TransactionType;
   amount: number;
-  date: string;
+  date?: string;
   dueDate?: string;
   category?: string;
   description?: string;
@@ -14,7 +14,7 @@ export interface CreateTransactionDTO {
 export interface CreateSettlementDTO {
   transactionId: string;
   amount: number;
-  date: string;
+  date?: string;
   notes?: string;
 }
 

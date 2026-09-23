@@ -9,7 +9,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import { useIOUM } from '../../context/IOUMContext';
-import { formatCurrency } from '../../utils/formatters';
+import { formatCurrency, formatDateTime } from '../../utils/formatters';
 import { Avatar } from '../common/Avatar';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
@@ -202,7 +202,7 @@ export const PersonDetailModal: React.FC<PersonDetailModalProps> = ({
                         <Badge status={tx.status} />
                       </div>
                       <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                        <span>{new Date(tx.date).toLocaleDateString()}</span>
+                        <span>{formatDateTime(tx.date)}</span>
                         {tx.category && (
                           <>
                             <span className="mx-1.5">•</span>
@@ -210,6 +210,16 @@ export const PersonDetailModal: React.FC<PersonDetailModalProps> = ({
                           </>
                         )}
                       </div>
+                      {tx.settlements && tx.settlements.length > 0 && (
+                        <div className="mt-1.5 space-y-0.5 pl-2 border-l-2 border-indigo-200 dark:border-indigo-800">
+                          {tx.settlements.map((s) => (
+                            <div key={s.id} className="text-[11px] text-slate-500 dark:text-slate-400">
+                              Paid {formatCurrency(s.amount, currency)} on {formatDateTime(s.date)}
+                              {s.notes ? ` (${s.notes})` : ''}
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
                     <div className="flex items-center gap-3 flex-shrink-0">

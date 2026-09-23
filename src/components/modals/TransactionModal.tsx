@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ArrowDownLeft, ArrowUpRight, Check, UserCheck, UserPlus } from 'lucide-react';
 import type { Transaction, TransactionType } from '../../types';
 import { useIOUM } from '../../context/IOUMContext';
+import { getCurrentDateTimeLocal, toDateTimeLocalString } from '../../utils/formatters';
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
 
@@ -41,7 +42,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
   const [isCreatingNewPerson, setIsCreatingNewPerson] = useState<boolean>(persons.length === 0);
   const [newPersonName, setNewPersonName] = useState<string>('');
   const [amount, setAmount] = useState<string>('');
-  const [date, setDate] = useState<string>('');
+  const [date, setDate] = useState<string>(getCurrentDateTimeLocal());
   const [dueDate, setDueDate] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -55,8 +56,14 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       setIsCreatingNewPerson(false);
       setNewPersonName('');
       setAmount(transactionToEdit.amount.toString());
-      setDate(transactionToEdit.date.split('T')[0]);
-      setDueDate(transactionToEdit.dueDate || '');
+      setDate(
+        transactionToEdit.date
+          ? toDateTimeLocalString(transactionToEdit.date)
+          : getCurrentDateTimeLocal()
+      );
+      setDueDate(
+        transactionToEdit.dueDate ? toDateTimeLocalString(transactionToEdit.dueDate) : ''
+      );
       setCategory(transactionToEdit.category || '');
       setDescription(transactionToEdit.description || '');
     } else {
@@ -73,7 +80,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       }
       setNewPersonName('');
       setAmount('');
-      setDate(new Date().toISOString().split('T')[0]);
+      setDate(getCurrentDateTimeLocal());
       setDueDate('');
       setCategory('');
       setDescription('');
@@ -116,6 +123,8 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
 
       const finalDesc = description.trim() || undefined;
       const finalCategory = category.trim() || undefined;
+      const isoDate = date ? new Date(date).toISOString() : new Date().toISOString();
+      const isoDueDate = dueDate ? new Date(dueDate).toISOString() : undefined;
 
       if (transactionToEdit) {
         await updateTransaction({
@@ -125,8 +134,8 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           amount: numAmount,
           remainingAmount:
             numAmount - (transactionToEdit.amount - transactionToEdit.remainingAmount),
-          date: new Date(date).toISOString(),
-          dueDate: dueDate ? dueDate : undefined,
+          date: isoDate,
+          dueDate: isoDueDate,
           category: finalCategory,
           description: finalDesc || finalCategory || (type === 'LENT' ? 'Loan' : 'Borrowed'),
         });
@@ -135,8 +144,8 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           type,
           personId: targetPersonId,
           amount: numAmount,
-          date: new Date(date).toISOString(),
-          dueDate: dueDate ? dueDate : undefined,
+          date: isoDate,
+          dueDate: isoDueDate,
           category: finalCategory,
           description: finalDesc,
         });
@@ -329,10 +338,10 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Transaction Date <span className="text-rose-500">*</span>
+              Date & Time <span className="text-rose-500">*</span>
             </label>
             <input
-              type="date"
+              type="datetime-local"
               required
               value={date}
               onChange={(e) => setDate(e.target.value)}
@@ -342,10 +351,10 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
 
           <div>
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Due Date (Optional)
+              Due Date & Time (Optional)
             </label>
             <input
-              type="date"
+              type="datetime-local"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
               className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white cursor-pointer"

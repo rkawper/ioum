@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { CheckCircle2, Sparkles } from 'lucide-react';
 import { useIOUM } from '../../context/IOUMContext';
-import { formatCurrency } from '../../utils/formatters';
+import { formatCurrency, getCurrentDateTimeLocal } from '../../utils/formatters';
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
 
@@ -20,6 +20,7 @@ export const SettleModal: React.FC<SettleModalProps> = ({
   const { transactions, persons, settleTransaction, currency } = useIOUM();
 
   const [settleAmount, setSettleAmount] = useState<string>('');
+  const [settleDate, setSettleDate] = useState<string>(getCurrentDateTimeLocal());
   const [notes, setNotes] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +31,7 @@ export const SettleModal: React.FC<SettleModalProps> = ({
   useEffect(() => {
     if (transaction) {
       setSettleAmount(transaction.remainingAmount.toString());
+      setSettleDate(getCurrentDateTimeLocal());
       setNotes('');
       setError(null);
     }
@@ -56,7 +58,8 @@ export const SettleModal: React.FC<SettleModalProps> = ({
 
     try {
       setIsSubmitting(true);
-      await settleTransaction(transaction.id, amount, notes.trim() || undefined);
+      const isoDate = settleDate ? new Date(settleDate).toISOString() : new Date().toISOString();
+      await settleTransaction(transaction.id, amount, notes.trim() || undefined, isoDate);
 
       // If fully settled, trigger festive confetti!
       if (amount >= transaction.remainingAmount) {
@@ -142,6 +145,20 @@ export const SettleModal: React.FC<SettleModalProps> = ({
               <CheckCircle2 className="w-3.5 h-3.5" /> This will fully clear and settle this debt!
             </p>
           )}
+        </div>
+
+        {/* Settlement Date & Time */}
+        <div>
+          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            Settlement Date & Time <span className="text-rose-500">*</span>
+          </label>
+          <input
+            type="datetime-local"
+            required
+            value={settleDate}
+            onChange={(e) => setSettleDate(e.target.value)}
+            className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white cursor-pointer"
+          />
         </div>
 
         {/* Notes */}

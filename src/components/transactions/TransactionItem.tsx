@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import type { Person, Transaction } from '../../types';
 import { useIOUM } from '../../context/IOUMContext';
-import { formatCurrency, formatDate, getDueDateStatus } from '../../utils/formatters';
+import { formatCurrency, formatDateTime, getDueDateStatus } from '../../utils/formatters';
 import { Avatar } from '../common/Avatar';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
@@ -100,7 +100,7 @@ export const TransactionItem: React.FC<TransactionItemProps> = ({
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-1 flex-wrap">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
-              {formatDate(transaction.date)}
+              {formatDateTime(transaction.date)}
             </span>
             {transaction.category && (
               <>

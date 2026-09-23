@@ -36,8 +36,17 @@ interface IOUMContextValue {
   addTransaction: (dto: CreateTransactionDTO) => Promise<Transaction>;
   updateTransaction: (transaction: Transaction) => Promise<void>;
   deleteTransaction: (transactionId: string) => Promise<void>;
-  settleTransaction: (transactionId: string, amount: number, notes?: string) => Promise<void>;
-  settleFullTransaction: (transactionId: string, notes?: string) => Promise<void>;
+  settleTransaction: (
+    transactionId: string,
+    amount: number,
+    notes?: string,
+    date?: string
+  ) => Promise<void>;
+  settleFullTransaction: (
+    transactionId: string,
+    notes?: string,
+    date?: string
+  ) => Promise<void>;
 
   // Data management
   exportData: () => void;
@@ -227,7 +236,8 @@ export const IOUMProvider: React.FC<IOUMProviderProps> = ({
   const settleTransaction = async (
     transactionId: string,
     amount: number,
-    notes?: string
+    notes?: string,
+    date?: string
   ): Promise<void> => {
     const tx = transactions.find((t) => t.id === transactionId);
     if (!tx) throw new Error('Transaction not found');
@@ -235,7 +245,7 @@ export const IOUMProvider: React.FC<IOUMProviderProps> = ({
     const updated = TransactionService.applySettlement(tx, {
       transactionId,
       amount,
-      date: new Date().toISOString(),
+      date: date || new Date().toISOString(),
       notes,
     });
 
@@ -249,11 +259,15 @@ export const IOUMProvider: React.FC<IOUMProviderProps> = ({
     }
   };
 
-  const settleFullTransaction = async (transactionId: string, notes?: string): Promise<void> => {
+  const settleFullTransaction = async (
+    transactionId: string,
+    notes?: string,
+    date?: string
+  ): Promise<void> => {
     const tx = transactions.find((t) => t.id === transactionId);
     if (!tx) throw new Error('Transaction not found');
 
-    const updated = TransactionService.settleFull(tx, new Date().toISOString(), notes);
+    const updated = TransactionService.settleFull(tx, date || new Date().toISOString(), notes);
     await transactionRepo.save(updated);
     setTransactions((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
     showToast('Debt fully settled! 🎉', 'success');

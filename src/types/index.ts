@@ -17,7 +17,7 @@ export interface Transaction {
   amount: number;
   remainingAmount: number;
   date: string; // ISO 8601
-  dueDate?: string; // ISO 8601 YYYY-MM-DD
+  dueDate?: string; // ISO 8601
   category?: string;
   description?: string;
   status: TransactionStatus;

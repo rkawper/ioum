@@ -75,6 +75,19 @@ describe('TransactionService', () => {
     expect(tx.description).toBe('Loan');
   });
 
+  it('defaults date to current time when omitted', () => {
+    const before = Date.now();
+    const tx = TransactionService.createTransaction({
+      personId: 'p-1',
+      type: 'LENT',
+      amount: 25,
+    });
+    const after = Date.now();
+    const txTime = new Date(tx.date).getTime();
+    expect(txTime).toBeGreaterThanOrEqual(before);
+    expect(txTime).toBeLessThanOrEqual(after);
+  });
+
   it('applies partial settlement correctly', () => {
     const tx = TransactionService.createTransaction({
       personId: 'p-1',
