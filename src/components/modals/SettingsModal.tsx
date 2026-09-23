@@ -132,7 +132,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
           </h4>
 
           {/* Export JSON */}
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
+          <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 gap-2.5">
             <div>
               <div className="text-sm font-semibold text-slate-900 dark:text-white">Export Backup (JSON)</div>
               <div className="text-xs text-slate-500 dark:text-slate-400">
@@ -145,13 +145,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
               size="sm"
               onClick={exportData}
               icon={<Download className="w-3.5 h-3.5" />}
+              className="w-full xs:w-auto min-h-[36px]"
             >
               Export
             </Button>
           </div>
 
           {/* Import JSON */}
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
+          <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 gap-2.5">
             <div>
               <div className="text-sm font-semibold text-slate-900 dark:text-white">Restore Backup (JSON)</div>
               <div className="text-xs text-slate-500 dark:text-slate-400">
@@ -159,7 +160,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
               </div>
             </div>
 
-            <div>
+            <div className="w-full xs:w-auto">
               <input
                 ref={fileInputRef}
                 type="file"
@@ -173,6 +174,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                 onClick={() => fileInputRef.current?.click()}
                 isLoading={isImporting}
                 icon={<Upload className="w-3.5 h-3.5" />}
+                className="w-full xs:w-auto min-h-[36px]"
               >
                 Import
               </Button>
@@ -180,7 +182,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
           </div>
 
           {/* Load Sample Data */}
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
+          <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 gap-2.5">
             <div>
               <div className="text-sm font-semibold text-slate-900 dark:text-white">Load Sample Data</div>
               <div className="text-xs text-slate-500 dark:text-slate-400">
@@ -196,6 +198,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                 onClose();
               }}
               icon={<Sparkles className="w-3.5 h-3.5 text-indigo-500" />}
+              className="w-full xs:w-auto min-h-[36px]"
             >
               Load Demo
             </Button>
@@ -207,7 +210,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
           <h4 className="text-xs font-semibold uppercase tracking-wider text-rose-500">Danger Zone</h4>
 
           {!showResetConfirm ? (
-            <div className="flex items-center justify-between p-3.5 rounded-xl bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200/60 dark:border-rose-900/40">
+            <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between p-3.5 rounded-xl bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200/60 dark:border-rose-900/40 gap-2.5">
               <div>
                 <div className="text-sm font-semibold text-rose-900 dark:text-rose-200">
                   Reset All Data
@@ -222,6 +225,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                 size="sm"
                 onClick={() => setShowResetConfirm(true)}
                 icon={<Trash2 className="w-3.5 h-3.5" />}
+                className="w-full xs:w-auto min-h-[36px]"
               >
                 Reset
               </Button>
@@ -235,11 +239,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
               <p className="text-xs text-rose-700 dark:text-rose-400">
                 This will wipe out all local records. If you haven't exported a backup, this cannot be recovered.
               </p>
-              <div className="flex items-center justify-end gap-2">
-                <Button variant="ghost" size="sm" onClick={() => setShowResetConfirm(false)}>
+              <div className="flex flex-col-reverse xs:flex-row items-stretch xs:items-center justify-end gap-2">
+                <Button variant="ghost" size="sm" onClick={() => setShowResetConfirm(false)} className="w-full xs:w-auto min-h-[38px]">
                   Cancel
                 </Button>
-                <Button variant="danger" size="sm" onClick={handleReset} icon={<RotateCcw className="w-3.5 h-3.5" />}>
+                <Button variant="danger" size="sm" onClick={handleReset} icon={<RotateCcw className="w-3.5 h-3.5" />} className="w-full xs:w-auto min-h-[38px]">
                   Confirm Wipeout
                 </Button>
               </div>
@@ -247,8 +251,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
           )}
         </div>
 
-        <div className="flex justify-end pt-2">
-          <Button variant="ghost" onClick={onClose}>
+        <div className="flex justify-end pt-2 border-t border-slate-100 dark:border-slate-800">
+          <Button variant="ghost" onClick={onClose} className="w-full sm:w-auto min-h-[44px]">
             Close
           </Button>
         </div>

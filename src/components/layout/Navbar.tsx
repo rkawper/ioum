@@ -64,17 +64,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Right Action Tools */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             {/* Download as Application Button */}
             <Button
               variant="outline"
               size="sm"
               onClick={onOpenDownloadModal}
-              className="border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50"
+              className="border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 px-2.5 sm:px-3"
               icon={<Download className="w-4 h-4 text-indigo-500" />}
+              aria-label="Install App"
+              title="Install App"
             >
               <span className="hidden sm:inline">Install App</span>
-              <span className="sm:hidden">App</span>
             </Button>
 
             {/* Currency Selector */}
@@ -82,11 +83,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 type="button"
                 onClick={() => setShowCurrencyDropdown(!showCurrencyDropdown)}
-                className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
+                className="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors cursor-pointer border border-slate-200 dark:border-slate-700 min-h-[36px]"
                 title="Change Currency"
               >
                 <span>{currency.code}</span>
-                <span className="text-slate-400">({currency.symbol})</span>
+                <span className="text-slate-400 hidden xs:inline">({currency.symbol})</span>
               </button>
 
               {showCurrencyDropdown && (

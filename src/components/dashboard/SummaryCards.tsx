@@ -73,15 +73,15 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
       </div>
 
       {/* 3 Metric Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
         {/* Card 1: Net Balance */}
-        <div className="relative overflow-hidden bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+        <div className="relative overflow-hidden bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow sm:col-span-2 md:col-span-1">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Net Balance
             </span>
             <div
-              className={`p-2.5 rounded-xl ${
+              className={`p-2 sm:p-2.5 rounded-xl ${
                 isPositiveNet
                   ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400'
                   : isNegativeNet
@@ -89,13 +89,13 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
                   : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
               }`}
             >
-              <Scale className="w-5 h-5" />
+              <Scale className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-3 sm:mt-4">
             <div
-              className={`text-3xl font-extrabold tracking-tight ${
+              className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${
                 isPositiveNet
                   ? 'text-emerald-600 dark:text-emerald-400'
                   : isNegativeNet
@@ -106,7 +106,7 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
               {isPositiveNet ? '+' : isNegativeNet ? '-' : ''}
               {formatCurrency(overallSummary.netBalance, currency)}
             </div>
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
               {isPositiveNet
                 ? 'Overall, you are in the positive (people owe you more)'
                 : isNegativeNet
@@ -115,7 +115,7 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+          <div className="mt-3 sm:mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span className="flex items-center gap-1.5">
               <Users className="w-3.5 h-3.5" />
               {overallSummary.peopleCount} {overallSummary.peopleCount === 1 ? 'person' : 'people'}
@@ -127,31 +127,31 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
         </div>
 
         {/* Card 2: You Are Owed (Lent) */}
-        <div className="relative overflow-hidden bg-white dark:bg-slate-900 rounded-2xl p-6 border border-emerald-100 dark:border-emerald-950/50 shadow-sm hover:shadow-md transition-shadow">
+        <div className="relative overflow-hidden bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-6 border border-emerald-100 dark:border-emerald-950/50 shadow-sm hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">
               You Are Owed (Lent)
             </span>
-            <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400">
-              <ArrowUpRight className="w-5 h-5" />
+            <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400">
+              <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
           </div>
 
-          <div className="mt-4">
-            <div className="text-3xl font-extrabold tracking-tight text-emerald-600 dark:text-emerald-400">
+          <div className="mt-3 sm:mt-4">
+            <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-emerald-600 dark:text-emerald-400">
               {formatCurrency(overallSummary.totalYouAreOwed, currency)}
             </div>
             <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">
-              Money friends and contacts will pay back to you
+              Money friends will pay back to you
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+          <div className="mt-3 sm:mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span>Pending collection</span>
             <button
               type="button"
               onClick={() => onOpenNewTransaction('LENT')}
-              className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold flex items-center gap-0.5 cursor-pointer"
+              className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold flex items-center gap-0.5 cursor-pointer py-1"
             >
               <Plus className="w-3.5 h-3.5" />
               Record Loan
@@ -160,31 +160,31 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
         </div>
 
         {/* Card 3: You Owe (Borrowed) */}
-        <div className="relative overflow-hidden bg-white dark:bg-slate-900 rounded-2xl p-6 border border-rose-100 dark:border-rose-950/50 shadow-sm hover:shadow-md transition-shadow">
+        <div className="relative overflow-hidden bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-6 border border-rose-100 dark:border-rose-950/50 shadow-sm hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-rose-700 dark:text-rose-400 uppercase tracking-wider">
               You Owe (Borrowed)
             </span>
-            <div className="p-2.5 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-950/60 dark:text-rose-400">
-              <ArrowDownLeft className="w-5 h-5" />
+            <div className="p-2 sm:p-2.5 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-950/60 dark:text-rose-400">
+              <ArrowDownLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
           </div>
 
-          <div className="mt-4">
-            <div className="text-3xl font-extrabold tracking-tight text-rose-600 dark:text-rose-400">
+          <div className="mt-3 sm:mt-4">
+            <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-rose-600 dark:text-rose-400">
               {formatCurrency(overallSummary.totalYouOwe, currency)}
             </div>
             <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">
-              Money you have borrowed and need to repay
+              Money you have borrowed to repay
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+          <div className="mt-3 sm:mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span>Pending repayment</span>
             <button
               type="button"
               onClick={() => onOpenNewTransaction('BORROWED')}
-              className="text-rose-600 dark:text-rose-400 hover:underline font-semibold flex items-center gap-0.5 cursor-pointer"
+              className="text-rose-600 dark:text-rose-400 hover:underline font-semibold flex items-center gap-0.5 cursor-pointer py-1"
             >
               <Plus className="w-3.5 h-3.5" />
               Record Borrow

@@ -157,7 +157,7 @@ export const TransactionItem: React.FC<TransactionItemProps> = ({
               size="sm"
               onClick={() => onSettle(transaction.id)}
               icon={<CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />}
-              className="text-xs"
+              className="text-xs min-h-[36px] px-3 font-semibold"
             >
               Settle
             </Button>
@@ -168,7 +168,7 @@ export const TransactionItem: React.FC<TransactionItemProps> = ({
             <button
               type="button"
               onClick={() => setShowMenu(!showMenu)}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+              className="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer min-w-[36px] min-h-[36px] flex items-center justify-center"
               aria-label="Actions"
             >
               <MoreVertical className="w-4 h-4" />

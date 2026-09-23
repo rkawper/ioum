@@ -98,7 +98,7 @@ export const DownloadAppModal: React.FC<DownloadAppModalProps> = ({ isOpen, onCl
             <button
               type="button"
               onClick={() => setActiveTab('android')}
-              className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 py-2 px-1 sm:px-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'android'
                   ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -112,7 +112,7 @@ export const DownloadAppModal: React.FC<DownloadAppModalProps> = ({ isOpen, onCl
             <button
               type="button"
               onClick={() => setActiveTab('windows')}
-              className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 py-2 px-1 sm:px-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'windows'
                   ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -126,7 +126,7 @@ export const DownloadAppModal: React.FC<DownloadAppModalProps> = ({ isOpen, onCl
             <button
               type="button"
               onClick={() => setActiveTab('macos')}
-              className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 py-2 px-1 sm:px-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'macos'
                   ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -140,7 +140,7 @@ export const DownloadAppModal: React.FC<DownloadAppModalProps> = ({ isOpen, onCl
             <button
               type="button"
               onClick={() => setActiveTab('build')}
-              className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 py-2 px-1 sm:px-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'build'
                   ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'

@@ -137,7 +137,7 @@ export const SettleModal: React.FC<SettleModalProps> = ({
               required
               value={settleAmount}
               onChange={(e) => setSettleAmount(e.target.value)}
-              className="w-full pl-8 pr-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-semibold text-slate-900 dark:text-white"
+              className="w-full pl-8 pr-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm font-semibold text-slate-900 dark:text-white"
             />
           </div>
           {isFullSettle && (
@@ -157,7 +157,7 @@ export const SettleModal: React.FC<SettleModalProps> = ({
             required
             value={settleDate}
             onChange={(e) => setSettleDate(e.target.value)}
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white cursor-pointer"
+            className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white cursor-pointer"
           />
         </div>
 
@@ -171,13 +171,13 @@ export const SettleModal: React.FC<SettleModalProps> = ({
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="e.g. Cash, Venmo transfer, bank transfer"
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white"
+            className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white"
           />
         </div>
 
         {/* Buttons */}
-        <div className="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-          <Button type="button" variant="ghost" onClick={onClose}>
+        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <Button type="button" variant="ghost" onClick={onClose} className="w-full sm:w-auto min-h-[44px]">
             Cancel
           </Button>
           <Button
@@ -185,6 +185,7 @@ export const SettleModal: React.FC<SettleModalProps> = ({
             variant="emerald"
             isLoading={isSubmitting}
             icon={<CheckCircle2 className="w-4 h-4" />}
+            className="w-full sm:w-auto min-h-[44px] font-bold"
           >
             Confirm Settlement
           </Button>

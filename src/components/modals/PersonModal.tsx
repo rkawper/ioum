@@ -106,7 +106,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Alex Morgan"
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white"
+            className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white"
             autoFocus
           />
         </div>
@@ -116,16 +116,16 @@ export const PersonModal: React.FC<PersonModalProps> = ({
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
             Avatar Color Theme
           </label>
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2.5 sm:gap-2 flex-wrap">
             {AVATAR_COLORS.map((c) => (
               <button
                 key={c}
                 type="button"
                 onClick={() => setAvatarColor(c)}
-                className={`w-7 h-7 rounded-full cursor-pointer transition-transform ${
+                className={`w-9 h-9 sm:w-7 sm:h-7 rounded-full cursor-pointer transition-transform ${
                   avatarColor === c
                     ? 'ring-2 ring-offset-2 ring-indigo-500 scale-110'
-                    : 'hover:scale-105'
+                    : 'hover:scale-105 active:scale-95'
                 }`}
                 style={{ backgroundColor: c }}
                 aria-label={`Select color ${c}`}
@@ -145,7 +145,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="+1 555-0123"
-              className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white"
+              className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white"
             />
           </div>
 
@@ -158,7 +158,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="alex@example.com"
-              className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white"
+              className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white"
             />
           </div>
         </div>
@@ -173,16 +173,16 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="e.g. Roommate, Tennis buddy, Work team"
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white"
+            className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white"
           />
         </div>
 
         {/* Buttons */}
-        <div className="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-          <Button type="button" variant="ghost" onClick={onClose}>
+        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <Button type="button" variant="ghost" onClick={onClose} className="w-full sm:w-auto min-h-[44px]">
             Cancel
           </Button>
-          <Button type="submit" variant="primary" isLoading={isSubmitting}>
+          <Button type="submit" variant="primary" isLoading={isSubmitting} className="w-full sm:w-auto min-h-[44px] font-bold">
             {personToEdit ? 'Save Changes' : 'Create Person'}
           </Button>
         </div>

@@ -3,6 +3,7 @@ import type { Person, Transaction, TransactionType } from './types';
 import { ToastContainer } from './components/common/ToastContainer';
 import { SummaryCards } from './components/dashboard/SummaryCards';
 import { Footer } from './components/layout/Footer';
+import { MobileBottomBar } from './components/layout/MobileBottomBar';
 import { Navbar } from './components/layout/Navbar';
 import { DownloadAppModal } from './components/modals/DownloadAppModal';
 import { PersonDetailModal } from './components/modals/PersonDetailModal';
@@ -79,7 +80,7 @@ const MainApp: React.FC = () => {
       />
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8 sm:space-y-10">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 sm:pb-8 space-y-8 sm:space-y-10">
         {/* Dashboard Overview Cards */}
         <section aria-label="Portfolio Summary">
           <SummaryCards
@@ -106,6 +107,12 @@ const MainApp: React.FC = () => {
           />
         </section>
       </main>
+
+      {/* Mobile Sticky Quick Action Dock */}
+      <MobileBottomBar
+        onOpenNewTransaction={handleOpenNewTransaction}
+        onOpenNewPerson={handleOpenNewPerson}
+      />
 
       {/* Modern Footer */}
       <Footer

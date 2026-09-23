@@ -133,13 +133,13 @@ export const PersonDetailModal: React.FC<PersonDetailModalProps> = ({
         )}
 
         {/* Balance Status Banner */}
-        <div className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 gap-3">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               Current Net Balance
             </span>
             <div
-              className={`text-2xl font-extrabold mt-0.5 ${
+              className={`text-xl sm:text-2xl font-extrabold mt-0.5 ${
                 isOwed
                   ? 'text-emerald-600 dark:text-emerald-400'
                   : isOwing
@@ -153,12 +153,13 @@ export const PersonDetailModal: React.FC<PersonDetailModalProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <Button
               variant="emerald"
               size="sm"
               onClick={() => onNewTransactionWithPerson(person.id, 'LENT')}
               icon={<ArrowUpRight className="w-3.5 h-3.5" />}
+              className="flex-1 sm:flex-initial min-h-[38px] font-semibold"
             >
               Lend
             </Button>
@@ -167,6 +168,7 @@ export const PersonDetailModal: React.FC<PersonDetailModalProps> = ({
               size="sm"
               onClick={() => onNewTransactionWithPerson(person.id, 'BORROWED')}
               icon={<ArrowDownLeft className="w-3.5 h-3.5" />}
+              className="flex-1 sm:flex-initial min-h-[38px] font-semibold"
             >
               Borrow
             </Button>
@@ -241,7 +243,7 @@ export const PersonDetailModal: React.FC<PersonDetailModalProps> = ({
                           size="sm"
                           onClick={() => onSettleTransaction(tx.id)}
                           icon={<CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />}
-                          className="text-xs py-1 px-2.5"
+                          className="text-xs min-h-[36px] px-3 font-semibold"
                         >
                           Settle
                         </Button>
@@ -254,8 +256,8 @@ export const PersonDetailModal: React.FC<PersonDetailModalProps> = ({
           )}
         </div>
 
-        <div className="flex justify-end pt-2">
-          <Button variant="ghost" onClick={onClose}>
+        <div className="flex justify-end pt-2 border-t border-slate-100 dark:border-slate-800">
+          <Button variant="ghost" onClick={onClose} className="w-full sm:w-auto min-h-[44px]">
             Close
           </Button>
         </div>

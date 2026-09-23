@@ -233,7 +233,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 value={newPersonName}
                 onChange={(e) => setNewPersonName(e.target.value)}
                 placeholder="Enter person name (e.g. Sarah, Alex, Mom)"
-                className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white"
+                className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white"
                 autoFocus
               />
               <p className="text-[11px] text-slate-500 dark:text-slate-400">
@@ -245,7 +245,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               required
               value={personId}
               onChange={(e) => setPersonId(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white cursor-pointer"
+              className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white cursor-pointer"
             >
               <option value="" disabled>
                 Select a person...
@@ -276,7 +276,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0.00"
-              className="w-full pl-8 pr-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-semibold text-slate-900 dark:text-white"
+              className="w-full pl-8 pr-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm font-semibold text-slate-900 dark:text-white"
             />
           </div>
         </div>
@@ -291,7 +291,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="e.g. Dinner split, concert tickets, rent advance"
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white"
+            className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white"
           />
         </div>
 
@@ -306,7 +306,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               required
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white cursor-pointer"
+              className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white cursor-pointer"
             />
           </div>
 
@@ -318,14 +318,14 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               type="datetime-local"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-900 dark:text-white cursor-pointer"
+              className="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base sm:text-sm text-slate-900 dark:text-white cursor-pointer"
             />
           </div>
         </div>
 
         {/* Buttons */}
-        <div className="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-          <Button type="button" variant="ghost" onClick={onClose}>
+        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <Button type="button" variant="ghost" onClick={onClose} className="w-full sm:w-auto min-h-[44px]">
             Cancel
           </Button>
           <Button
@@ -333,6 +333,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             variant={type === 'LENT' ? 'emerald' : 'rose'}
             isLoading={isSubmitting}
             icon={<Check className="w-4 h-4" />}
+            className="w-full sm:w-auto min-h-[44px] font-bold"
           >
             {transactionToEdit
               ? 'Save Changes'
