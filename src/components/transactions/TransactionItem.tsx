@@ -93,7 +93,7 @@ export const TransactionItem: React.FC<TransactionItemProps> = ({
           </div>
 
           <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-100 mt-1 truncate">
-            {transaction.description}
+            {transaction.description || transaction.category || (isLent ? 'Loan' : 'Borrowed')}
           </h4>
 
           {/* Metadata chips (Date, Category, Due date) */}

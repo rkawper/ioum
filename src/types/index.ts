@@ -19,7 +19,7 @@ export interface Transaction {
   date: string; // ISO 8601
   dueDate?: string; // ISO 8601 YYYY-MM-DD
   category: string;
-  description: string;
+  description?: string;
   status: TransactionStatus;
   settlements: Settlement[];
   createdAt: string;

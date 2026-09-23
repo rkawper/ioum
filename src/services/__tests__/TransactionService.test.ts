@@ -44,6 +44,26 @@ describe('TransactionService', () => {
     ).toThrow('Transaction must be associated with a person');
   });
 
+  it('allows optional description and provides smart fallback', () => {
+    const txCategoryFallback = TransactionService.createTransaction({
+      personId: 'p-1',
+      type: 'LENT',
+      amount: 50,
+      date: '2026-02-01',
+      category: 'Food & Dining',
+    });
+    expect(txCategoryFallback.description).toBe('Food & Dining');
+
+    const txTypeFallback = TransactionService.createTransaction({
+      personId: 'p-1',
+      type: 'BORROWED',
+      amount: 30,
+      date: '2026-02-01',
+      category: 'General',
+    });
+    expect(txTypeFallback.description).toBe('Borrowed');
+  });
+
   it('applies partial settlement correctly', () => {
     const tx = TransactionService.createTransaction({
       personId: 'p-1',

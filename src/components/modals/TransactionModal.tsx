@@ -58,7 +58,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       setDate(transactionToEdit.date.split('T')[0]);
       setDueDate(transactionToEdit.dueDate || '');
       setCategory(transactionToEdit.category || 'General');
-      setDescription(transactionToEdit.description);
+      setDescription(transactionToEdit.description || '');
     } else {
       setType(initialType);
       if (initialPersonId) {
@@ -90,11 +90,6 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       return;
     }
 
-    if (!description.trim()) {
-      setError('Please provide a short description or reason');
-      return;
-    }
-
     let targetPersonId = personId;
 
     try {
@@ -119,6 +114,8 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
         return;
       }
 
+      const finalDesc = description.trim() || undefined;
+
       if (transactionToEdit) {
         await updateTransaction({
           ...transactionToEdit,
@@ -130,7 +127,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           date: new Date(date).toISOString(),
           dueDate: dueDate ? dueDate : undefined,
           category,
-          description: description.trim(),
+          description: finalDesc || category || (type === 'LENT' ? 'Loan' : 'Borrowed'),
         });
       } else {
         await addTransaction({
@@ -140,7 +137,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           date: new Date(date).toISOString(),
           dueDate: dueDate ? dueDate : undefined,
           category,
-          description: description.trim(),
+          description: finalDesc,
         });
       }
 
@@ -315,11 +312,10 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
         {/* Description / Reason */}
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Description / Reason <span className="text-rose-500">*</span>
+            Description / Reason (Optional)
           </label>
           <input
             type="text"
-            required
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="e.g. Dinner split, concert tickets, rent advance"

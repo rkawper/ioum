@@ -86,7 +86,7 @@ export const SettleModal: React.FC<SettleModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       title="Settle Transaction"
-      subtitle={`Record payment for "${transaction.description}" with ${person?.name || 'person'}`}
+      subtitle={`Record payment for "${transaction.description || transaction.category || 'Transaction'}" with ${person?.name || 'person'}`}
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (

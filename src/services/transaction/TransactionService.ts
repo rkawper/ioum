@@ -8,7 +8,7 @@ export interface CreateTransactionDTO {
   date: string;
   dueDate?: string;
   category: string;
-  description: string;
+  description?: string;
 }
 
 export interface CreateSettlementDTO {
@@ -40,9 +40,15 @@ export class TransactionService {
     if (!dto.personId) {
       throw new Error('Transaction must be associated with a person');
     }
-    if (!dto.description.trim()) {
-      throw new Error('Transaction description is required');
-    }
+
+    const trimmedDesc = dto.description?.trim();
+    const finalDescription =
+      trimmedDesc ||
+      (dto.category && dto.category !== 'General'
+        ? dto.category
+        : dto.type === 'LENT'
+        ? 'Loan'
+        : 'Borrowed');
 
     const now = new Date().toISOString();
     return {
@@ -54,7 +60,7 @@ export class TransactionService {
       date: dto.date || now,
       dueDate: dto.dueDate || undefined,
       category: dto.category || 'General',
-      description: dto.description.trim(),
+      description: finalDescription,
       status: 'PENDING',
       settlements: [],
       createdAt: now,

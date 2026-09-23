@@ -197,7 +197,7 @@ export const PersonDetailModal: React.FC<PersonDetailModalProps> = ({
                     <div className="min-w-0 pr-3">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-semibold text-slate-900 dark:text-white truncate">
-                          {tx.description}
+                          {tx.description || tx.category || (isTxLent ? 'Loan' : 'Borrowed')}
                         </span>
                         <Badge status={tx.status} />
                       </div>
